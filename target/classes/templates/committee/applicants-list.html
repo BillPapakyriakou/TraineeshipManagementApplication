@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
+<head>
+    <title>Traineeship Applicants</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+            color: #fff;
+        }
+
+        .dark-mode .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #fff;
+        }
+
+        .dark-mode .table {
+            background-color: #3a3a3a;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table thead {
+            background-color: #444;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #3c3c3c;
+        }
+
+        .dark-mode .text-muted {
+            color: #b0b0b0 !important;
+        }
+
+        .dark-mode a {
+            color: #4a90e2;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <h2 class="text-center mb-4">Traineeship Applicants</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+        <tr>
+            <th>Full Name</th>
+            <th>Skills</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${applicants.empty}">
+            <td colspan="4" class="text-center text-muted">No students are currently looking for a traineeship.</td>
+        </tr>
+        <tr th:each="student : ${applicants}">
+            <td th:text="${student.student_name}">John Doe</td>
+            <td th:text="${student.skills}">Java, Python</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="/users/home" class="btn btn-secondary">Return to Home</a>
+    </div>
+</div>
+<script src="/js/dark-mode.js"></script>
+</body>
+</html>

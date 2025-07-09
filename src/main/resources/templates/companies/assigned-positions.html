@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traineeship Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        body {
+            transition: none;
+        }
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+        .dark-mode .btn-primary,
+        .dark-mode .btn-danger,
+        .dark-mode .btn-warning {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+        }
+        .dark-mode .card {
+            background-color: #444;
+            border-color: #666;
+        }
+        .dark-mode .card-title,
+        .dark-mode .card-text {
+            color: #f0f0f0;
+        }
+    </style>
+</head>
+<body class="${darkMode ? 'dark-mode' : ''}">
+
+<div class="container mt-5">
+    <h2 class="text-center">Traineeship Management</h2>
+
+    <div class="text-right mb-3">
+        <a href="/companies/traineeship-management/announce" class="btn btn-primary">Announce New Traineeship</a>
+    </div>
+
+    <div th:if="${traineeships.isEmpty()}">
+        <p class="text-center text-muted">No traineeships assigned yet.</p>
+    </div>
+
+    <div class="row" th:each="t : ${traineeships}">
+        <div class="col-md-12 mb-3">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title" th:text="'Traineeship for ' + ${t.studentFullName}"></h5>
+                        <p class="card-text" th:text="'From ' + ${t.startDate} + ' to ' + ${t.endDate}"></p>
+                        <p class="card-text" th:text="${t.description}"></p>
+                        <p class="card-text">
+                            <strong>Skills:</strong> <span th:text="${t.requiredSkills}"></span><br>
+                            <strong>Topics:</strong> <span th:text="${t.topicsOfInterest}"></span>
+                        </p>
+                    </div>
+
+                    <div class="btn-group-vertical">
+                        <form th:action="@{/companies/traineeship/delete/{id}(id=${t.id})}" method="post">
+                            <button type="submit" class="btn btn-danger mb-2">Delete</button>
+                        </form>
+
+                        <a th:href="@{/companies/traineeship/evaluate/{id}(id=${t.id})}"
+                           class="btn btn-warning"
+                           th:if="${t.status == 'in_progress' && !t.evaluated}">
+                            Fill Evaluation
+                        </a>
+
+                        <span class="text-success" th:if="${t.evaluated}">Evaluation Submitted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="/users/home" class="btn btn-secondary mt-3">Return to Home</a>
+</div>
+
+<script src="/js/dark-mode.js"></script>
+
+</body>
+</html>

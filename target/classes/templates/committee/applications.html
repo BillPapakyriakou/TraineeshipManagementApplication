@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traineeship Applications</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Traineeship Applications</h2>
+    <div class="mt-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Username</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="applicant : ${applicants}">
+                <td th:text="${applicant.name}"></td>
+                <td th:text="${applicant.username}"></td>
+                <td>
+                    <a href="/committee/positions?studentUsername=${applicant.username}&strategy=interests" class="btn btn-info">Find Positions</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

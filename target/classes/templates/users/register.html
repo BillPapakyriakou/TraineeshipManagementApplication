@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center">Registration</h2>
+                </div>
+                <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                <div class="card-body">
+
+                    <form th:action="@{/users/register/select-role}" method="post" class="mb-4">
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Register as:</label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option value="">Select your role</option>
+                                <option value="STUDENT" th:selected="${selectedRole == 'STUDENT'}">STUDENT</option>
+                                <option value="PROFESSOR" th:selected="${selectedRole == 'PROFESSOR'}">PROFESSOR</option>
+                                <option value="COMPANY" th:selected="${selectedRole == 'COMPANY'}">COMPANY</option>
+                                <option value="COMMITTEE_MEMBER" th:selected="${selectedRole == 'COMMITTEE_MEMBER'}">COMMITTEE_MEMBER</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Select Role</button>
+                    </form>
+
+                    <!-- Dynamic Registration Forms -->
+                    <div th:if="${selectedRole != null and !selectedRole.isEmpty()}">
+                        <!-- Student Form -->
+                        <form th:if="${selectedRole == 'STUDENT'}" th:action="@{/students/register}" method="post">
+                            <input type="hidden" name="role" th:value="${selectedRole}">
+
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
+
+                            <h4 class="mt-4">Student Information</h4>
+                            <div class="mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" name="studentName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Student ID</label>
+                                <input type="text" class="form-control" name="AM" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Register as Student</button>
+                        </form>
+
+                        <!-- Professor Form -->
+                        <form th:if="${selectedRole == 'PROFESSOR'}" th:action="@{/professors/register}" method="post">
+                            <input type="hidden" name="role" th:value="${selectedRole}">
+
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
+
+                            <h4 class="mt-4">Professor Information</h4>
+                            <div class="mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" name="professorName" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Register as Professor</button>
+                        </form>
+
+                        <!-- Company Form -->
+                        <form th:if="${selectedRole == 'COMPANY'}" th:action="@{/companies/register}" method="post">
+                            <input type="hidden" name="role" th:value="${selectedRole}">
+
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
+
+                            <h4 class="mt-4">Company Information</h4>
+                            <div class="mb-3">
+                                <label class="form-label">Company Name</label>
+                                <input type="text" class="form-control" name="companyName" required>
+
+                                <label class="form-label">Company Location</label>
+                                <input type="text" class="form-control" name="companyLocation" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Register as Company</button>
+                        </form>
+                    </div>
+
+                    <!-- Committee Form -->
+                    <form th:if="${selectedRole == 'COMMITTEE_MEMBER'}" th:action="@{/committees/register}" method="post">
+                        <input type="hidden" name="role" th:value="${selectedRole}">
+
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+
+                        <h4 class="mt-4">Committee Information</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Committee Member Name</label>
+                            <input type="text" class="form-control" name="committeeMemberName" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Register as Committee Member</button>
+                    </form>
+                </div>
+
+
+                    <div class="mt-3 text-center">
+                        <p>Already have an account? <a th:href="@{/users/login}">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

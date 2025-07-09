@@ -1,0 +1,16 @@
+<!-- company/position-form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Position</title>
+</head>
+<body>
+<h1>Add New Position</h1>
+<form action="/position/save" method="post">
+    <input type="hidden" name="username" value="your_username">
+    <label>Title: <input type="text" name="title"></label>
+    <label>Description: <textarea name="description"></textarea></label>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            transition: none !important;
+        }
+
+        .dark-mode-init {
+            /* Disable transition for initial load */
+            transition: none !important;
+        }
+
+        .dark-mode {
+            background-color: #2f2f2f !important;
+            color: #f0f0f0 !important;
+        }
+
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Disable transition for background color change */
+            transition: none !important;
+        }
+
+        .dark-mode .container {
+            background-color: #3a3a3a !important;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .dark-mode .dashboard-header {
+            color: #e0e0e0;
+        }
+
+        .dashboard-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-header p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .dark-mode .dashboard-header p {
+            color: #ccc;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .nav-buttons a {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            width: 180px;
+            text-align: center;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #45a049;
+        }
+
+        .logout-btn {
+            display: block;
+            margin: 40px auto;
+            padding: 12px 25px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 180px;
+            text-align: center;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .dark-mode .logout-btn {
+            background-color: #d32f2f;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header h2 {
+                font-size: 2rem;
+            }
+
+            .nav-buttons a,
+            .logout-btn {
+                width: 160px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="dashboard-header">
+        <h2>Welcome, <span th:text="${username}"></span>!</h2>
+        <p>Your role is: Company </p>
+        <p>Create/update your company profile, manage and view your traineeships.</p>
+    </div>
+
+    <div class="nav-buttons">
+        <a th:href="@{/companies/profile(username=${username})}">View Company Profile</a>
+        <a th:href="@{/companies/assigned-traineeships(username=${username})}">Assigned Traineeships</a>
+        <a th:href="@{/companies/traineeship-management(username=${username})}">Traineeship Management</a>
+    </div>
+
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+
+
+    <button id="toggle-dark-mode" class="btn btn-secondary" style="margin-top: 20px;">Toggle Dark Mode</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/dark-mode.js"></script>
+
+</body>
+</html>

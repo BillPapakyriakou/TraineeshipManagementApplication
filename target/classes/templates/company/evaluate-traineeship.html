@@ -1,0 +1,16 @@
+<!-- company/evaluate-traineeship.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evaluate Traineeship</title>
+</head>
+<body>
+<h1>Evaluate Traineeship</h1>
+<form action="/evaluation/save" method="post">
+    <input type="hidden" name="positionId" value="{{ positionId }}">
+    <label>Rating: <input type="number" name="rating" min="1" max="5"></label>
+    <label>Comments: <textarea name="comments"></textarea></label>
+    <button type="submit">Submit Evaluation</button>
+</form>
+</body>
+</html>

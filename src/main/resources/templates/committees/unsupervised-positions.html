@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>Traineeship Positions Needing Supervisors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+            color: #fff;
+        }
+
+        .dark-mode .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #fff;
+        }
+
+        .dark-mode .table {
+            background-color: #3a3a3a;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table thead {
+            background-color: #444;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #3c3c3c;
+        }
+
+        .dark-mode .text-muted {
+            color: #b0b0b0 !important;
+        }
+
+        .dark-mode a {
+            color: #4a90e2;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <h2 class="text-center mb-4">Traineeship Positions Needing Supervisors</h2>
+
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+        <tr>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Topics</th>
+            <th>Skills</th>
+            <th>Assigned Student</th>
+            <th>Assign Supervisor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(positions)}">
+            <td colspan="9" class="text-center text-muted">No traineeships awaiting supervisor assignment.</td>
+        </tr>
+        <tr th:each="position : ${positions}"
+            th:if="${position.isAssigned} and ${position.supervisor} == null">
+            <td th:text="${position.company.companyName}">Company A</td>
+            <td th:text="${position.company.companyLocation}">New York</td>
+            <td th:text="${position.description}">Build web apps</td>
+            <td th:text="${position.fromDate}">2025-06-01</td>
+            <td th:text="${position.toDate}">2025-09-01</td>
+            <td th:text="${position.topics}">Web Development</td>
+            <td th:text="${position.skills}">Java, Spring</td>
+            <td th:text="${position.student != null ? position.student.studentName : 'N/A'}">John Doe</td>
+            <td>
+                <a th:href="@{/committees/unsupervised-positions/find-supervisors/{id}(id=${position.id})}" class="btn btn-primary btn-sm">
+                    Find Supervisor
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="/committees/home" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+<script src="/js/dark-mode.js"></script>
+</body>
+</html>

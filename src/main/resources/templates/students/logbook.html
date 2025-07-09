@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fill Logbook</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        body { transition: none; }
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+        .dark-mode .form-control {
+            background-color: #444;
+            color: #f0f0f0;
+            border-color: #666;
+        }
+        .dark-mode .form-control:focus {
+            background-color: #555;
+            color: #f0f0f0;
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+    </style>
+</head>
+<body class="${darkMode ? 'dark-mode' : ''}">
+<div class="container mt-5">
+    <h2 class="text-center">Fill Logbook</h2>
+
+    <form th:action="@{/students/logbook/save}" method="post">
+
+        <input type="hidden" th:name="positionId" th:value="${position.id}" />
+
+        <input type="hidden" name="username" th:value="${username}" />
+        <input type="hidden" name="student" th:value="${student}" />
+
+
+        <div class="form-group">
+            <label>Company</label>
+            <input type="text" class="form-control" th:value="${position.company.companyName}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Location</label>
+            <input type="text" class="form-control" th:value="${position.company.companyLocation}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" rows="3" readonly th:text="${position.description}"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Start Date</label>
+            <input type="date" class="form-control" th:value="${position.fromDate}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>End Date</label>
+            <input type="date" class="form-control" th:value="${position.toDate}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Skills</label>
+            <input type="text" class="form-control" th:value="${position.skills}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Topics</label>
+            <input type="text" class="form-control" th:value="${position.topics}" readonly>
+        </div>
+
+
+        <div class="form-group">
+            <label for="studentLogbook">Logbook Entry</label>
+            <textarea id="studentLogbook" name="studentLogbook" class="form-control" rows="10" placeholder="Write your logbook entry here..." required
+                      th:text="${position.studentLogbook}"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Logbook Entry</button>
+    </form>
+
+    <a href="/users/home" class="btn btn-secondary mt-3">Return to Home</a>
+</div>
+
+<script src="/js/dark-mode.js"></script>
+</body>
+</html>

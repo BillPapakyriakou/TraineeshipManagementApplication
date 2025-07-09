@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill Logbook</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Fill Logbook</h2>
+
+    <form action="/student/logbook/save" method="POST">
+        <div class="form-group">
+            <label for="positionTitle">Position Title</label>
+            <input type="text" class="form-control" id="positionTitle" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="fromDate">Start Date</label>
+            <input type="date" class="form-control" id="fromDate" name="fromDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="toDate">End Date</label>
+            <input type="date" class="form-control" id="toDate" name="toDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="skills">Skills</label>
+            <input type="text" class="form-control" id="skills" name="skills" required>
+        </div>
+
+        <div class="form-group">
+            <label for="topics">Topics</label>
+            <input type="text" class="form-control" id="topics" name="topics" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Logbook Entry</button>
+    </form>
+
+    <!-- Button to return to the home page -->
+    <a href="http://localhost:9090/users/home" class="btn btn-secondary mt-3">Return to Home</a>
+</div>
+</body>
+</html>

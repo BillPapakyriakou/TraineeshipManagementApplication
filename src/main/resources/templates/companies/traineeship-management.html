@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
+<head>
+    <title>Traineeship Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+            color: #fff;
+        }
+
+        .dark-mode .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #fff;
+        }
+
+        .dark-mode .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .dark-mode .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #212529;
+        }
+
+        .dark-mode .table {
+            background-color: #3a3a3a;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table thead {
+            background-color: #444;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #3c3c3c;
+        }
+
+        .dark-mode .text-muted {
+            color: #b0b0b0 !important;
+        }
+
+        .dark-mode a {
+            color: #4a90e2;
+        }
+    </style>
+
+</head>
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <h2 class="text-center mb-4">Traineeship Management</h2>
+
+    <div class="mb-3 text-right">
+        <a th:href="@{/companies/traineeship-management/announce-traineeship(username=${username})}" class="btn btn-primary">Announce New Traineeship </a>
+    </div>
+
+    <!-- Hidden field to pass company username -->
+    <input type="hidden" name="username" th:value="${username}" />
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+        <tr>
+            <!--<th>Student</th>-->
+            <th>Start - End</th>
+            <th>Description</th>
+            <th>Skills</th>
+            <th>Topics</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${positions.empty}">
+            <td colspan="6" class="text-center text-muted">No traineeships assigned yet.</td>
+        </tr>
+        <tr th:each="t : ${positions}">
+            <!--<td th:text="${t.studentFullName}">John Doe</td>-->
+            <td th:text="${t.fromDate + ' - ' + t.toDate}">2025-05-01 - 2025-08-31</td>
+            <td th:text="${t.description}">Internship Description</td>
+            <td th:text="${t.skills}">Java, SQL</td>
+            <td th:text="${t.topics}">Databases, Web Dev</td>
+            <td>
+                <form th:action="@{/companies/traineeship-management/delete/{id}(id=${t.id})}" method="post" style="display: inline;">
+                    <input type="hidden" name="username" th:value="${username}" />
+                    <button type="submit" class="btn btn-sm btn-danger"
+                            onclick="if (!(confirm('Are you sure you want to delete this traineeship position?'))) return false;">
+                        Delete Traineeship
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="/users/home" class="btn btn-secondary">Return to Home</a>
+    </div>
+</div>
+<script src="/js/dark-mode.js"></script>
+</body>
+</html>

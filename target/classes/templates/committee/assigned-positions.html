@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigned Traineeships</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Assigned Traineeships</h2>
+    <div class="mt-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Position Title</th>
+                <th>Student Name</th>
+                <th>Supervisor</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="traineeship : ${assignedTraineeships}">
+                <td th:text="${traineeship.title}"></td>
+                <td th:text="${traineeship.assignedStudent.name}"></td>
+                <td th:text="${traineeship.supervisor.name}"></td>
+                <td>
+                    <form th:action="@{/committee/complete-traineeship}" method="post">
+                        <input type="hidden" name="positionId" th:value="${traineeship.id}">
+                        <button type="submit" class="btn btn-success">Mark as Completed</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

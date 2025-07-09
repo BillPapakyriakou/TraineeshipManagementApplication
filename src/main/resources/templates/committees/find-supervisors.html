@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>Assign Supervisor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+            color: #fff;
+        }
+
+        .dark-mode .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #fff;
+        }
+
+        .dark-mode .table {
+            background-color: #3a3a3a;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table thead {
+            background-color: #444;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #3c3c3c;
+        }
+
+        .dark-mode .text-muted {
+            color: #b0b0b0 !important;
+        }
+
+        .dark-mode a {
+            color: #4a90e2;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <h2 class="text-center mb-4">Assign a Supervisor</h2>
+
+
+    <form th:action="@{/committees/unsupervised-positions/find-supervisors/{positionId}(positionId=${position.id})}" method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="strategyFilter">Search Strategy</label>
+                <select id="strategyFilter" name="strategy" class="form-control">
+                    <option value="interests" th:selected="${strategy == 'interests'}">Professor Interests</option>
+                    <option value="load" th:selected="${strategy == 'load'}">Workload (fewest first)</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
+    </form>
+
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+        <tr>
+            <th>Name</th>
+            <th>Interests</th>
+            <th>Currently Supervising</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${professors.empty}">
+            <td colspan="5" class="text-center text-muted">No professors found for selected criteria.</td>
+        </tr>
+        <tr th:each="prof : ${professors}">
+            <td th:text="${prof.professorName}">Professor A</td>
+            <td th:text="${prof.interests}">AI, Databases</td>
+            <td th:text="${workloadMap[prof.id]}">0</td>
+            <td>
+                <form th:action="@{/committees/assign-supervisor}" method="post" style="display: inline;">
+                    <input type="hidden" name="positionId" th:value="${position.id}" />
+                    <input type="hidden" name="professorId" th:value="${prof.id}" />
+                    <button type="submit" class="btn btn-sm btn-success"
+                            onclick="return confirm('Assign this professor as supervisor?');">
+                        Assign
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="/committees/unsupervised-positions" class="btn btn-secondary">Back to Unsupervised Positions</a>
+    </div>
+</div>
+<script src="/js/dark-mode.js"></script>
+</body>
+</html>

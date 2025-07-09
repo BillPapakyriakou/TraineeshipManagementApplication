@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>Evaluation Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+
+
+        .dark-mode .card-header {
+            background-color: #2f2f2f;
+            color: #ffffff;
+            border-bottom: 1px solid #444;
+        }
+
+
+        .dark-mode .card {
+            background-color: #3a3a3a;
+            border: 1px solid #444;
+        }
+
+
+        .dark-mode .table {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+            border-collapse: collapse;
+            border: 1px solid #444;
+        }
+
+
+        .dark-mode .table th {
+            background-color: #3b3b3b;
+            color: #ffffff;
+            border: 1px solid #555;
+        }
+
+
+        .dark-mode .table td {
+            background-color: #3a3a3a;
+            color: #f0f0f0;
+            border: 1px solid #555;
+        }
+
+
+        .dark-mode .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #3c3c3c;
+        }
+
+
+        .dark-mode .text-muted {
+            color: #b0b0b0 !important;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <h2 class="text-center mb-4">Position Evaluations</span></h2>
+
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Company Evaluation</h4>
+        </div>
+        <div class="card-body" th:if="${companyEval != null}">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                <tr>
+                    <th>Motivation</th>
+                    <td th:text="${companyEval.motivation}">-</td>
+                </tr>
+                <tr>
+                    <th>Efficiency</th>
+                    <td th:text="${companyEval.efficiency}">-</td>
+                </tr>
+                <tr>
+                    <th>Effectiveness</th>
+                    <td th:text="${companyEval.effectiveness}">-</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-body" th:if="${companyEval == null}">
+            <p class="text-muted">No company evaluation available.</p>
+        </div>
+    </div>
+
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Professor Evaluation</h4>
+        </div>
+        <div class="card-body" th:if="${professorEval != null}">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                <tr>
+                    <th>Motivation</th>
+                    <td th:text="${professorEval.motivation}">-</td>
+                </tr>
+                <tr>
+                    <th>Efficiency</th>
+                    <td th:text="${professorEval.efficiency}">-</td>
+                </tr>
+                <tr>
+                    <th>Effectiveness</th>
+                    <td th:text="${professorEval.effectiveness}">-</td>
+                </tr>
+                <tr>
+                    <th>Company Facilities</th>
+                    <td th:text="${professorEval.companyFacilities}">-</td>
+                </tr>
+                <tr>
+                    <th>Company Guidance</th>
+                    <td th:text="${professorEval.companyGuidance}">-</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-body" th:if="${professorEval == null}">
+            <p class="text-muted">No professor evaluation available.</p>
+        </div>
+    </div>
+
+
+    <div class="text-center mt-3 d-flex justify-content-center">
+        <form th:action="@{/committees/pass/{positionId}(positionId=${positionId})}" method="post" style="display:inline;">
+        <button type="submit" class="btn btn-success mr-3">Pass</button>
+        </form>
+        <form th:action="@{/committees/fail/{positionId}(positionId=${positionId})}" method="post" style="display:inline;">
+        <button type="submit" class="btn btn-danger">Fail</button>
+        </form>
+    </div>
+
+
+    <div class="text-center mt-4">
+        <a href="/committees/in-progress" class="btn btn-secondary">Back to traineeships</a>
+    </div>
+
+</div>
+
+<script src="/js/dark-mode.js"></script>
+</body>
+</html>

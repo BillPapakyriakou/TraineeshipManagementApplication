@@ -1,0 +1,16 @@
+<!-- company/available-positions.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Positions</title>
+</head>
+<body>
+<h1>Available Positions</h1>
+<a href="/position-form">Add New Position</a>
+<ul>
+    {% for position in positions %}
+    <li>{{ position.title }} - <a href="/position/delete?positionId={{ position.id }}">Delete</a></li>
+    {% endfor %}
+</ul>
+</body>
+</html>

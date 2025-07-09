@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traineeship Announcement</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        body {
+            transition: none;
+        }
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+        }
+        .dark-mode .form-control {
+            background-color: #444;
+            color: #f0f0f0;
+            border-color: #666;
+        }
+        .dark-mode .form-control:focus {
+            background-color: #555;
+            color: #f0f0f0;
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+        .dark-mode .form-group label {
+            color: #f0f0f0;
+        }
+    </style>
+</head>
+<body class="${darkMode ? 'dark-mode' : ''}">
+<div class="container mt-5">
+    <h2 class="text-center">Announce Traineeship Position</h2>
+
+    <form th:action="@{/companies/traineeship-management/announce-traineeship/save}" method="post" th:object="${traineeship}">
+
+        <!-- Hidden field to pass company username -->
+        <input type="hidden" name="username" th:value="${username}" />
+
+        <div class="form-group">
+            <label for="fromDate">Start Date</label>
+            <input type="date" class="form-control" id="fromDate" th:field="*{fromDate}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="toDate">End Date</label>
+            <input type="date" class="form-control" id="toDate" th:field="*{toDate}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Short Description</label>
+            <textarea class="form-control" id="description" rows="3" th:field="*{description}" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="skills">Required Skills</label>
+            <input type="text" class="form-control" id="skills" th:field="*{skills}" placeholder="Comma-separated" required>
+        </div>
+
+        <div class="form-group">
+            <label for="topics">Topics of Interest</label>
+            <input type="text" class="form-control" id="topics" th:field="*{topics}" placeholder="Comma-separated" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Announce</button>
+    </form>
+
+    <div class="mt-3">
+        <span class="text-success" th:text="${successMessage}"></span>
+    </div>
+    <a th:href="@{http://localhost:9090/companies/traineeship-management(username=${username})}" class="btn btn-secondary mr-2">Back to Traineeship Management</a>
+    <a href="http://localhost:9090/users/home" class="btn btn-secondary mr-2">Return to Home</a>
+</div>
+
+<script src="/js/dark-mode.js"></script>
+
+</body>
+</html>
+

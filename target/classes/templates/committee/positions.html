@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Traineeship Positions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Available Traineeship Positions</h2>
+    <div class="mt-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Position Title</th>
+                <th>Company</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="position : ${positions}">
+                <td th:text="${position.title}"></td>
+                <td th:text="${position.company}"></td>
+                <td th:text="${position.startDate}"></td>
+                <td th:text="${position.endDate}"></td>
+                <td>
+                    <form th:action="@{/committee/assign-position}" method="post">
+                        <input type="hidden" name="positionId" th:value="${position.id}">
+                        <input type="hidden" name="studentUsername" th:value="${studentUsername}">
+                        <button type="submit" class="btn btn-primary">Assign Position</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

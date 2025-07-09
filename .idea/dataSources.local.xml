@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="IU-243.26053.27">
+    <data-source name="traineeship_management@localhost" uuid="090eb4a0-44c2-47fd-8200-5acee434eaa0">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" />
+      <user-name>root</user-name>
+      <schema-mapping />
+    </data-source>
+    <data-source name="database@localhost" uuid="e22182ce-3968-455f-8062-4fcdc96c9e5a">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" />
+      <user-name>danai</user-name>
+      <schema-mapping />
+    </data-source>
+  </component>
+</project>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        body {
+            transition: none;
+        }
+
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+        }
+
+        .dark-mode .btn-success {
+            background-color: #388e3c;
+            border-color: #388e3c;
+        }
+
+        .dark-mode .btn-danger {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+
+        .return-home-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Welcome to the Student Dashboard</h2>
+    <div class="text-center mt-4">
+        <a th:href="@{/students/profile(username=${username})}" class="btn btn-primary">View Profile</a>
+        <a th:href="@{/students/logbook(username=${username})}" class="btn btn-success">Fill Logbook</a>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+
+<div class="return-home-btn">
+    <a href="/students/home" class="btn btn-info">Return to Home</a>
+</div>
+
+<script src="/js/dark-mode.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
+<head>
+    <title>Traineeship Positions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+            color: #fff;
+        }
+
+        .dark-mode .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #fff;
+        }
+
+        .dark-mode .table {
+            background-color: #3a3a3a;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table thead {
+            background-color: #444;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #3c3c3c;
+        }
+
+        .dark-mode .text-muted {
+            color: #b0b0b0 !important;
+        }
+
+        .dark-mode a {
+            color: #4a90e2;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <h2 class="text-center mb-4">Traineeship Positions for Student</h2>
+
+
+    <form th:action="@{/committees/applicants-list/find-traineeships/{id}(id=${student.id})}" method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="strategyFilter">Search Strategy</label>
+                <select id="strategyFilter" name="strategy" class="form-control">
+                    <option value="both" th:selected="${strategy == 'both'}">Location & Interests</option>
+                    <option value="location" th:selected="${strategy == 'location'}">Location Only</option>
+                    <option value="interests" th:selected="${strategy == 'interests'}">Interests Only</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
+    </form>
+
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+        <tr>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Topics</th>
+            <th>Skills</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${positions.empty}">
+            <td colspan="9" class="text-center text-muted">No positions found based on the selected filters.</td>
+        </tr>
+        <tr th:each="position : ${positions}">
+            <td th:text="${position.company.companyName}">Company A</td>
+            <td th:text="${position.company.companyLocation}">New York</td>
+            <td th:text="${position.description}">Build web apps</td>
+            <td th:text="${position.fromDate}">2025-06-01</td>
+            <td th:text="${position.toDate}">2025-09-01</td>
+            <td th:text="${position.topics}">Web Development</td>
+            <td th:text="${position.skills}">Java, Spring</td>
+            <td>
+                <form th:action="@{/committees/assign-position}" method="post" style="display: inline;">
+                    <input type="hidden" name="positionId" th:value="${position.id}" />
+                    <input type="hidden" name="studentUsername" th:value="${student.username}" />
+                    <input type="hidden" name="studentId" th:value="${student.id}" />
+                    <input type="hidden" name="strategy" th:value="${strategy}" />
+
+                    <button type="submit" class="btn btn-sm btn-success"
+                            onclick="return confirm('Are you sure you want to assign this traineeship to this student?');">
+                        Assign
+                    </button>
+                </form>
+
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="/committees/applicants-list" class="btn btn-secondary">Back to Applicants List</a>
+    </div>
+</div>
+<script src="/js/dark-mode.js"></script>
+</body>
+</html>

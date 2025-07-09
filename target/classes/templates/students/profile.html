@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+
+        body {
+            transition: none;
+        }
+
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+        }
+
+        .dark-mode .btn-success {
+            background-color: #388e3c;
+            border-color: #388e3c;
+        }
+
+        .dark-mode .btn-danger {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+
+        .dark-mode .btn-secondary {
+            background-color: #757575;
+            border-color: #757575;
+        }
+
+
+        .dark-mode .form-control {
+            background-color: #444;
+            color: #f0f0f0;
+            border-color: #666;
+        }
+
+        .dark-mode .form-control:focus {
+            background-color: #555;
+            color: #f0f0f0;
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+
+        .dark-mode .form-group label {
+            color: #f0f0f0;
+        }
+
+        .dark-mode .form-check-label {
+            color: #f0f0f0;
+        }
+
+        .return-home-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="${darkMode ? 'dark-mode' : ''}">
+<div class="container mt-5">
+    <h2 class="text-center">Student Profile</h2>
+
+    <form th:action="@{/students/profile/save}" method="post" th:object="${student}">
+
+        <!-- Hidden field to keep username -->
+        <input type="hidden" th:field="*{username}" />
+
+        <div class="form-group">
+            <label for="studentName">Full Name</label>
+            <input type="text" class="form-control" id="studentName" th:field="*{studentName}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="AM">University ID (AM)</label>
+            <input type="text" class="form-control" id="AM" th:field="*{AM}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="avgGrade">Average Grade</label>
+            <input type="number" step="0.01" class="form-control" id="avgGrade" th:field="*{avgGrade}">
+        </div>
+
+        <div class="form-group">
+            <label for="preferredLocation">Preferred Location</label>
+            <input type="text" class="form-control" id="preferredLocation" th:field="*{preferredLocation}">
+        </div>
+
+        <div class="form-group">
+            <label for="interests">Interests</label>
+            <input type="text" class="form-control" id="interests" th:field="*{interests}">
+        </div>
+
+        <div class="form-group">
+            <label for="skills">Skills</label>
+            <input type="text" class="form-control" id="skills" th:field="*{skills}">
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="lookingForTraineeship" th:field="*{lookingForTraineeship}">
+            <label class="form-check-label" for="lookingForTraineeship">Looking for Traineeship</label>
+        </div>
+
+        <div class="form-group">
+            <label for="assignedTraineeship">Assigned Traineeship ID</label>
+            <input type="text" class="form-control" id="assignedTraineeship"
+                   th:value="*{assignedTraineeship != null ? assignedTraineeship.id : ''}" readonly>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Profile</button>
+    </form>
+
+    <div class="mt-3">
+        <span class="text-success" th:text="${successMessage}"></span>
+    </div>
+
+    <a href="http://localhost:9090/users/home" class="btn btn-secondary mt-3">Return to Home</a>
+</div>
+
+<script src="/js/dark-mode.js"></script>
+
+</body>
+</html>

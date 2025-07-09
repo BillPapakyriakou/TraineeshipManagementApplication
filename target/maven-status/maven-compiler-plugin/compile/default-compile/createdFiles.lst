@@ -1,0 +1,7 @@
+traineeship_app\services\search\PositionsSearchFactory.class
+traineeship_app\services\search\SearchBasedOnInterests.class
+traineeship_app\services\search\SearchBasedOnLocation.class
+traineeship_app\mappers\EvaluationMapper.class
+traineeship_app\services\assign\AssignmentBasedOnLoad.class
+traineeship_app\services\assign\AssignmentBasedOnInterests.class
+traineeship_app\services\search\CompositeSearch.class

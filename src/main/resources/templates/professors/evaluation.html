@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Professor Evaluation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+    <style>
+        body {
+            transition: none;
+        }
+        .dark-mode {
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+        }
+        .dark-mode .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+        }
+        .dark-mode .form-control {
+            background-color: #444;
+            color: #f0f0f0;
+            border-color: #666;
+        }
+        .dark-mode .form-control:focus {
+            background-color: #555;
+            color: #f0f0f0;
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+        .dark-mode .form-group label {
+            color: #f0f0f0;
+        }
+    </style>
+</head>
+<body class="${darkMode ? 'dark-mode' : ''}">
+<div class="container mt-5">
+    <h2 class="text-center">Company Evaluation</h2>
+
+    <form th:action="@{/professors/evaluation/save}" method="post" th:object="${evaluation}">
+        <!-- Hidden fields to preserve id and associated traineeship position -->
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{traineeshipPosition.id}" />
+
+        <div class="form-group">
+            <label for="motivation">Motivation (0-5)</label>
+            <input type="number" min="0" max="5" class="form-control" id="motivation" th:field="*{motivation}" required />
+        </div>
+
+        <div class="form-group">
+            <label for="effectiveness">Effectiveness (0-5)</label>
+            <input type="number" min="0" max="5" class="form-control" id="effectiveness" th:field="*{effectiveness}" required />
+        </div>
+
+        <div class="form-group">
+            <label for="efficiency">Efficiency (0-5)</label>
+            <input type="number" min="0" max="5" class="form-control" id="efficiency" th:field="*{efficiency}" required />
+        </div>
+
+        <div class="form-group">
+            <label for="companyFacilities">Company Facilities (0-5)</label>
+            <input type="number" min="0" max="5" class="form-control" id="companyFacilities" th:field="*{companyFacilities}" />
+        </div>
+
+        <div class="form-group">
+            <label for="companyGuidance">Company Guidance (0-5)</label>
+            <input type="number" min="0" max="5" class="form-control" id="companyGuidance" th:field="*{companyGuidance}" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Evaluation</button>
+    </form>
+
+    <div class="mt-3">
+        <span class="text-success" th:text="${successMessage}"></span>
+    </div>
+
+    <a th:href="@{'/professors/supervised-positions'(username=${professorUsername})}"
+       class="btn btn-secondary mt-3">Back to Assigned Positions</a>
+</div>
+
+<script src="/js/dark-mode.js"></script>
+</body>
+</html>
